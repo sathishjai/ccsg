@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Maybank Credit Card Statement</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: #FFC800;
+            padding: 15px;
+            overflow: hidden;
+        }
+        
+        .logo {
+            float: left;
+            width: 150px;
+        }
+        
+        .header-title {
+            float: right;
+            font-size: 18pt;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .statement-info {
+            padding: 15px;
+            background-color: #F5F5F5;
+            border-bottom: 1px solid #CCCCCC;
+        }
+        
+        .customer-info {
+            float: left;
+            width: 60%;
+        }
+        
+        .date-info {
+            float: right;
+            width: 35%;
+            text-align: right;
+        }
+        
+        .summary-box {
+            clear: both;
+            margin: 15px;
+            border: 1px solid #CCCCCC;
+            padding: 10px;
+        }
+        
+        .summary-title {
+            font-size: 12pt;
+            font-weight: bold;
+            border-bottom: 2px solid #FFC800;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .summary-table td {
+            padding: 5px;
+        }
+        
+        .summary-table .label {
+            font-weight: bold;
+            width: 60%;
+        }
+        
+        .highlight {
+            background-color: #FFFBE6;
+        }
+        
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .transaction-table th {
+            background-color: #EFEFEF;
+            padding: 5px;
+            text-align: left;
+            border-bottom: 1px solid #CCCCCC;
+        }
+        
+        .transaction-table td {
+            padding: 5px;
+            border-bottom: 1px solid #EFEFEF;
+        }
+        
+        .amount {
+            text-align: right;
+        }
+        
+        .payment {
+            color: #006600;
+        }
+        
+        .section {
+            margin: 15px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            border-bottom: 2px solid #FFC800;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            padding: 15px;
+            background-color: #F5F5F5;
+            font-size: 8pt;
+            text-align: center;
+            border-top: 1px solid #CCCCCC;
+            margin-top: 20px;
+        }
+        
+        .clearfix {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <img class="logo" src="{{ assets['maybank_logo.png'] }}" alt="Maybank Logo">
+        <div class="header-title">{{ translate('CREDIT_CARD_STATEMENT') }}</div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <!-- Statement Info -->
+    <div class="statement-info">
+        <div class="customer-info">
+            <strong>{{ statement.customer.full_name }}</strong><br>
+            {{ statement.customer.address|replace('\n', '<br>')|safe }}
+        </div>
+        <div class="date-info">
+            <strong>{{ translate('STATEMENT_DATE') }}:</strong> {{ statement.statement_period.end_date|strftime('%d %b %Y') }}<br>
+            <strong>{{ translate('PAYMENT_DUE_DATE') }}:</strong> {{ statement.account.payment_due_date|strftime('%d %b %Y') }}<br>
+            <strong>{{ translate('ACCOUNT_NUMBER') }}:</strong> {{ statement.account.masked_account_number }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <!-- Summary Box -->
+    <div class="summary-box">
+        <div class="summary-title">{{ translate('STATEMENT_SUMMARY') }}</div>
+        <table class="summary-table">
+            <tr class="highlight">
+                <td class="label">{{ translate('NEW_BALANCE') }}</td>
+                <td class="amount">RM {{ statement.account.current_balance|format_currency }}</td>
+            </tr>
+            <tr class="highlight">
+                <td class="label">{{ translate('MINIMUM_PAYMENT') }}</td>
+                <td class="amount">RM {{ statement.account.minimum_payment|format_currency }}</td>
+            </tr>
+            <tr class="highlight">
+                <td class="label">{{ translate('PAYMENT_DUE_DATE') }}</td>
+                <td>{{ statement.account.payment_due_date|strftime('%d %b %Y') }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('PREVIOUS_BALANCE') }}</td>
+                <td class="amount">RM {{ statement.account.previous_balance|format_currency }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('TOTAL_PAYMENTS') }}</td>
+                <td class="amount payment">RM {{ statement.summary.total_credits|format_currency }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('TOTAL_PURCHASES_AND_CHARGES') }}</td>
+                <td class="amount">RM {{ statement.summary.total_debits|format_currency }}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- Account Details -->
+    <div class="section">
+        <div class="section-title">{{ translate('ACCOUNT_DETAILS') }}</div>
+        <table class="summary-table">
+            <tr>
+                <td class="label">{{ translate('CARD_TYPE') }}</td>
+                <td>{{ statement.account.card_type }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('CREDIT_LIMIT') }}</td>
+                <td class="amount">RM {{ statement.account.credit_limit|format_currency }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('AVAILABLE_CREDIT') }}</td>
+                <td class="amount">RM {{ statement.account.available_credit|format_currency }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('STATEMENT_PERIOD') }}</td>
+                <td>{{ statement.statement_period.start_date|strftime('%d %b %Y') }} - {{ statement.statement_period.end_date|strftime('%d %b %Y') }}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- Transaction Details -->
+    <div class="section">
+        <div class="section-title">{{ translate('TRANSACTION_DETAILS') }}</div>
+        
+        {% if statement.categorized_transactions.payments %}
+        <div style="margin-top: 15px;">
+            <strong>{{ translate('PAYMENTS') }}</strong>
+            <table class="transaction-table">
+                <tr>
+                    <th>{{ template.transaction_headers[statement.language].date }}</th>
+                    <th>{{ template.transaction_headers[statement.language].description }}</th>
+                    <th class="amount">{{ template.transaction_headers[statement.language].amount }}</th>
+                </tr>
+                {% for transaction in statement.categorized_transactions.payments %}
+                <tr>
+                    <td>{{ transaction.posting_date|strftime('%d/%m/%Y') }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="amount payment">{{ transaction.formatted_amount }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+        
+        {% if statement.categorized_transactions.purchases %}
+        <div style="margin-top: 15px;">
+            <strong>{{ translate('PURCHASES_AND_CHARGES') }}</strong>
+            <table class="transaction-table">
+                <tr>
+                    <th>{{ template.transaction_headers[statement.language].date }}</th>
+                    <th>{{ template.transaction_headers[statement.language].description }}</th>
+                    <th class="amount">{{ template.transaction_headers[statement.language].amount }}</th>
+                </tr>
+                {% for transaction in statement.categorized_transactions.purchases %}
+                <tr>
+                    <td>{{ transaction.posting_date|strftime('%d/%m/%Y') }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="amount">{{ transaction.formatted_amount }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+        
+        {% if statement.categorized_transactions.fees %}
+        <div style="margin-top: 15px;">
+            <strong>{{ translate('FEES') }}</strong>
+            <table class="transaction-table">
+                <tr>
+                    <th>{{ template.transaction_headers[statement.language].date }}</th>
+                    <th>{{ template.transaction_headers[statement.language].description }}</th>
+                    <th class="amount">{{ template.transaction_headers[statement.language].amount }}</th>
+                </tr>
+                {% for transaction in statement.categorized_transactions.fees %}
+                <tr>
+                    <td>{{ transaction.posting_date|strftime('%d/%m/%Y') }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="amount">{{ transaction.formatted_amount }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+        
+        {% if statement.categorized_transactions.interest %}
+        <div style="margin-top: 15px;">
+            <strong>{{ translate('INTEREST_CHARGES') }}</strong>
+            <table class="transaction-table">
+                <tr>
+                    <th>{{ template.transaction_headers[statement.language].date }}</th>
+                    <th>{{ template.transaction_headers[statement.language].description }}</th>
+                    <th class="amount">{{ template.transaction_headers[statement.language].amount }}</th>
+                </tr>
+                {% for transaction in statement.categorized_transactions.interest %}
+                <tr>
+                    <td>{{ transaction.posting_date|strftime('%d/%m/%Y') }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="amount">{{ transaction.formatted_amount }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Rewards Summary -->
+    <div class="section">
+        <div class="section-title">{{ translate('REWARDS_SUMMARY') }}</div>
+        <table class="summary-table">
+            <tr>
+                <td class="label">{{ translate('POINTS_BALANCE') }}</td>
+                <td>{{ statement.rewards.points_balance|default(0) }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('POINTS_EARNED_THIS_PERIOD') }}</td>
+                <td>{{ statement.rewards.points_earned|default(0) }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ translate('POINTS_REDEEMED') }}</td>
+                <td>{{ statement.rewards.points_redeemed|default(0) }}</td>
+            </tr>
+            {% if statement.rewards.points_expiring and statement.rewards.expiry_date %}
+            <tr>
+                <td class="label">{{ translate('POINTS_EXPIRING') }}</td>
+                <td>{{ statement.rewards.points_expiring }} ({{ translate('EXPIRES_ON') }} {{ statement.rewards.expiry_date|strftime('%d %b %Y') }})</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    
+    <!-- Payment Instructions -->
+    <div class="section">
+        <div class="section-title">{{ translate('PAYMENT_INFORMATION') }}</div>
+        <div>
+            <strong>{{ translate('PAYMENT_METHODS') }}:</strong>
+            <ul>
+                {% for instruction in template.payment_instructions[statement.language] %}
+                <li>{{ instruction }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        {{ template.footer_text }}<br>
+        {{ template.contact_info[statement.language].address|replace('\n', ', ')|safe }} | {{ template.contact_info[statement.language].phone }} | {{ template.contact_info[statement.language].email }}<br>
+        {{ template.contact_info[statement.language].website }}
+    </div>
+</body>
+</html>

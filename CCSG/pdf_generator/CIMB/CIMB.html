@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIMB Credit Card eStatement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #be0029;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header-date {
+            text-align: right;
+        }
+        .statement-info {
+            background-color: #f2f2f2;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .statement-left {
+            width: 60%;
+        }
+        .statement-right {
+            width: 35%;
+            text-align: right;
+        }
+        .section {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #be0029;
+            margin-bottom: 10px;
+        }
+        .summary-box {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .summary-item {
+            width: 48%;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .summary-label {
+            font-size: 12px;
+            color: #666;
+        }
+        .summary-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .minimum-due {
+            color: #be0029;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            padding: 10px;
+            font-size: 14px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        .campaign-banner {
+            background-color: #ffedee;
+            border: 2px solid #be0029;
+            padding: 15px;
+            margin: 20px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .campaign-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #be0029;
+            margin-bottom: 10px;
+        }
+        .footer {
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-logo">CIMB</div>
+            <div class="header-date">
+                <div>STATEMENT DATE: 10 APR 2025</div>
+                <div>STATEMENT PERIOD: 11 MAR 2025 - 10 APR 2025</div>
+            </div>
+        </div>
+
+        <div class="statement-info">
+            <div class="statement-left">
+                <div><strong>JOHN SMITH</strong></div>
+                <div>123 SAMPLE STREET</div>
+                <div>KUALA LUMPUR, 50450</div>
+                <div>MALAYSIA</div>
+                <div style="margin-top: 10px;">Card No: XXXX XXXX XXXX 1234</div>
+                <div>Account No: 1234567890</div>
+            </div>
+            <div class="statement-right">
+                <div><strong>CIMB VISA PLATINUM</strong></div>
+                <div style="margin-top: 10px;">Credit Limit: RM 30,000.00</div>
+                <div>Available Credit: RM 24,562.35</div>
+            </div>
+        </div>
+
+        <div class="campaign-banner">
+            <div class="campaign-title">Credit Card eStatement Campaign 2024</div>
+            <div>Switch to eStatements now and stand a chance to win exciting prizes!</div>
+            <div style="margin-top: 10px;">Go paperless to reduce your carbon footprint and enjoy hassle-free banking.</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">ACCOUNT SUMMARY</div>
+            <div class="summary-box">
+                <div class="summary-item">
+                    <div class="summary-label">TOTAL OUTSTANDING BALANCE</div>
+                    <div class="summary-value">RM 5,437.65</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">MINIMUM PAYMENT DUE</div>
+                    <div class="summary-value minimum-due">RM 271.88</div>
+                </div>
+            </div>
+            <div class="summary-box">
+                <div class="summary-item">
+                    <div class="summary-label">PAYMENT DUE DATE</div>
+                    <div class="summary-value">1 MAY 2025</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">REWARDS POINTS BALANCE</div>
+                    <div class="summary-value">12,450 pts</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">PAYMENT & TRANSACTIONS SUMMARY</div>
+            <table>
+                <tr>
+                    <td>Previous Balance</td>
+                    <td style="text-align: right;">RM 4,837.21</td>
+                </tr>
+                <tr>
+                    <td>Payments</td>
+                    <td style="text-align: right;">- RM 1,500.00</td>
+                </tr>
+                <tr>
+                    <td>Purchases</td>
+                    <td style="text-align: right;">+ RM 2,056.44</td>
+                </tr>
+                <tr>
+                    <td>Cash Advances</td>
+                    <td style="text-align: right;">+ RM 0.00</td>
+                </tr>
+                <tr>
+                    <td>Fees and Charges</td>
+                    <td style="text-align: right;">+ RM 0.00</td>
+                </tr>
+                <tr>
+                    <td>Interest Charges</td>
+                    <td style="text-align: right;">+ RM 44.00</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>Current Balance</td>
+                    <td style="text-align: right;">RM 5,437.65</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">TRANSACTION DETAILS</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount (RM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15 MAR 2025</td>
+                        <td>PAYMENT - THANK YOU</td>
+                        <td style="text-align: right;">-1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>18 MAR 2025</td>
+                        <td>GRAB TRANSPORT KL</td>
+                        <td style="text-align: right;">15.50</td>
+                    </tr>
+                    <tr>
+                        <td>18 MAR 2025</td>
+                        <td>MID VALLEY MEGAMALL</td>
+                        <td style="text-align: right;">235.90</td>
+                    </tr>
+                    <tr>
+                        <td>22 MAR 2025</td>
+                        <td>SHOPEE MALAYSIA</td>
+                        <td style="text-align: right;">189.50</td>
+                    </tr>
+                    <tr>
+                        <td>24 MAR 2025</td>
+                        <td>PETRONAS AMPANG</td>
+                        <td style="text-align: right;">120.00</td>
+                    </tr>
+                    <tr>
+                        <td>27 MAR 2025</td>
+                        <td>NETFLIX SUBSCRIPTION</td>
+                        <td style="text-align: right;">45.90</td>
+                    </tr>
+                    <tr>
+                        <td>02 APR 2025</td>
+                        <td>JAYA GROCER DAMANSARA</td>
+                        <td style="text-align: right;">287.64</td>
+                    </tr>
+                    <tr>
+                        <td>05 APR 2025</td>
+                        <td>PAVILION KL RESTAURANT</td>
+                        <td style="text-align: right;">325.00</td>
+                    </tr>
+                    <tr>
+                        <td>08 APR 2025</td>
+                        <td>LAZADA MALAYSIA</td>
+                        <td style="text-align: right;">837.00</td>
+                    </tr>
+                    <tr>
+                        <td>10 APR 2025</td>
+                        <td>INTEREST CHARGES</td>
+                        <td style="text-align: right;">44.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">REWARDS AND BENEFITS</div>
+            <div>Rewards Points earned this month: 2,056 points</div>
+            <div>Total Rewards Points balance: 12,450 points</div>
+            <div style="margin-top: 10px;">Visit <strong>www.cimb.com.my/rewards</strong> to redeem your points for exciting rewards!</div>
+        </div>
+
+        <div class="campaign-banner">
+            <div class="campaign-title">Go Green with eStatements!</div>
+            <div>As part of our Credit Card eStatement Campaign 2024, switch to eStatements by 30 JUN 2025 and:</div>
+            <ul style="text-align: left; margin: 10px 40px;">
+                <li>Get 1,000 bonus rewards points</li>
+                <li>Enter a lucky draw to win premium gadgets</li>
+                <li>Contribute to environmental sustainability</li>
+            </ul>
+            <div style="margin-top: 10px; font-weight: bold;">Register now through CIMB Clicks or call 1300-88-CIMB (2462)</div>
+        </div>
+
+        <div class="footer">
+            <div>This is a computer-generated statement and does not require a signature.</div>
+            <div style="margin-top: 10px;">For inquiries, please call our 24-hour Customer Service at 1300-88-CIMB (2462) or email customer.service@cimb.com</div>
+            <div style="margin-top: 10px;">&copy; 2025 CIMB Bank Berhad. All Rights Reserved.</div>
+        </div>
+    </div>
+</body>
+</html>
